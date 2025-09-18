@@ -1,0 +1,198 @@
+modules = ["python-3.11"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["cairo", "ffmpeg-full", "freetype", "ghostscript", "glibcLocales", "gobject-introspection", "gtk3", "pkg-config", "qhull", "ta-lib", "tcl", "tk"]
+
+[workflows]
+runButton = "Enhanced Backtest & Optimize"
+
+[[workflows.workflow]]
+name = "Enhanced Signal Bot"
+author = 46518829
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python SignalMaestro/enhanced_signal_bot.py"
+
+[[workflows.workflow]]
+name = "Perfect Signal Bot"
+author = 46537226
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python SignalMaestro/perfect_signal_bot.py"
+
+[[workflows.workflow]]
+name = "Perfect Scalping Bot"
+author = 46555627
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python SignalMaestro/perfect_scalping_bot.py"
+
+[[workflows.workflow]]
+name = "Perfect Scalping Bot Auto-Restart"
+author = 46555627
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python SignalMaestro/process_manager.py start"
+
+[[workflows.workflow]]
+name = "Bot Process Manager"
+author = 46600198
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python SignalMaestro/process_manager.py status"
+
+[[workflows.workflow]]
+name = "Perfect Scalping Bot Fixed"
+author = 34160275
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python SignalMaestro/perfect_scalping_bot.py"
+
+[[workflows.workflow]]
+name = "Perfect Scalping Daemon"
+author = 34160275
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_daemon.py"
+
+[[workflows.workflow]]
+name = "Perfect Scalping Daemon"
+author = 34160275
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_daemon.py"
+
+[[workflows.workflow]]
+name = "Ultimate Trading Bot"
+author = 34160275
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_ultimate_bot.py"
+
+[[workflows.workflow]]
+name = "ML-Enhanced Trading Bot"
+author = 34160275
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_ml_enhanced_bot.py"
+
+[[workflows.workflow]]
+name = "Adaptive ML Trading Bot"
+author = 34160275
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_adaptive_ml_bot.py"
+
+[[workflows.workflow]]
+name = "Enhanced Perfect Scalping Bot"
+author = 46688834
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_enhanced_perfect_bot.py"
+
+[[workflows.workflow]]
+name = "Keep-Alive Service"
+author = 46688834
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python keep_alive.py"
+
+[[workflows.workflow]]
+name = "Setup Uptime Monitoring"
+author = 46688834
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python setup_uptime_monitoring.py"
+
+[[workflows.workflow]]
+name = "Enhanced Perfect Scalping Bot V2"
+author = 46695900
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_enhanced_bot_v2.py"
+
+[[workflows.workflow]]
+name = "Ultimate Scalping Bot V3"
+author = 46695900
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python start_ultimate_bot.py"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Signal Bot"
+
+[[workflows.workflow]]
+name = "Signal Bot"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd SignalMaestro && python ultimate_trading_bot.py"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "Enhanced Backtest & Optimize"
+author = 47020040
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python run_enhanced_backtest_sequence.py"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[[ports]]
+localPort = 5000
+externalPort = 5173
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[deployment]
+run = ["sh", "-c", "python start_enhanced_bot_v2.py"]
